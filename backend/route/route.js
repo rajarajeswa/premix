@@ -15,7 +15,7 @@ const {
     getRazorpayKey 
 } = require('../controller/razorpayController');
 const { getOrders, getMyOrders, updateOrderStatus } = require('../controller/orderController');
-const { register, login } = require('../controller/authController');
+const { register, login, forgotPassword, resetPassword } = require('../controller/authController');
 const { parseAuthForm, verifyToken } = require('../middleware/authMiddleware');
 const {
     getAddresses,
@@ -39,6 +39,8 @@ const router = express.Router();
 // Auth routes
 router.post('/auth/register', register);
 router.post('/auth/login', parseAuthForm, login);
+router.post('/auth/forgot-password', forgotPassword);
+router.post('/auth/reset-password/:token', resetPassword);
 
 // Product routes
 router.post('/add', addProduct);

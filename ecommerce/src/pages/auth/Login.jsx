@@ -64,6 +64,9 @@ function Login() {
                                     <label className="form-label">Password</label>
                                     <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
                                 </div>
+                                <div className="mb-3 text-end">
+                                    <Link to="/forgot-password" style={{ color: 'var(--chettinad-terracotta)', fontSize: '0.9rem' }}>Forgot Password?</Link>
+                                </div>
                                 {error && <div className="alert alert-danger">{error}</div>}
                                 <button type="submit" className="btn btn-chettinad-primary w-100 mb-3" disabled={loading}>
                                     {loading ? 'Logging in...' : 'Login'}

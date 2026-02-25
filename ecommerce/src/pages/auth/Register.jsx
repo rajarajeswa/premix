@@ -9,6 +9,7 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
@@ -31,6 +32,7 @@ function Register() {
             formData.append('email', email.trim());
             formData.append('password', password);
             if (name.trim()) formData.append('name', name.trim());
+            if (phone.trim()) formData.append('phone', phone.trim());
             const { data } = await apiFetch('/api/auth/register', {
                 method: 'POST',
                 body: formData
@@ -67,6 +69,10 @@ function Register() {
                                 <div className="mb-3">
                                     <label className="form-label">Name (optional)</label>
                                     <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Mobile Number (optional)</label>
+                                    <input type="tel" className="form-control" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="10-digit mobile number" pattern="[0-9]{10}" maxLength={10} />
                                 </div>
                                 <div className="mb-4">
                                     <label className="form-label">Password (min 6 characters)</label>

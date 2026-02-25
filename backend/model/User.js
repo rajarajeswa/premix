@@ -20,6 +20,21 @@ const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    phone: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+        field: 'phone'
+    },
+    resetPasswordToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        field: 'reset_password_token'
+    },
+    resetPasswordExpires: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        field: 'reset_password_expires'
     }
 }, {
     tableName: 'users',

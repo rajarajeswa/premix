@@ -15,6 +15,8 @@ import Checkout from './pages/checkout/Checkout'
 import PaymentSuccess from './pages/checkout/PaymentSuccess'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
+import ForgotPassword from './pages/auth/ForgotPassword'
+import ResetPassword from './pages/auth/ResetPassword'
 import AboutUs from './pages/about/AboutUs'
 import Orders from './pages/admin/Orders'
 import MyOrders from './pages/orders/MyOrders'
@@ -41,6 +43,8 @@ function App() {
           <Route path="/payment-success" element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/about" element={<AboutUs />} />
         </Routes>
       </Router>
