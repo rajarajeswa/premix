@@ -30,6 +30,10 @@ const {
     unsubscribe,
     getSubscribers
 } = require('../controller/subscriptionController');
+const {
+    sendNewsletter,
+    getNewsletterStats
+} = require('../controller/newsletterController');
 const router = express.Router();
 
 // Auth routes
@@ -91,6 +95,10 @@ router.put('/addresses/:id/default', verifyToken, setDefaultAddress);
 router.post('/subscribe', subscribe);
 router.post('/unsubscribe', unsubscribe);
 router.get('/subscribers', verifyToken, getSubscribers);
+
+// Newsletter sending routes (admin only)
+router.post('/newsletter/send', verifyToken, sendNewsletter);
+router.get('/newsletter/stats', verifyToken, getNewsletterStats);
 
 // Health check (for "is backend running?")
 router.get('/test', (req, res) => {

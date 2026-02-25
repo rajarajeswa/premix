@@ -18,6 +18,7 @@ import Register from './pages/auth/Register'
 import AboutUs from './pages/about/AboutUs'
 import Orders from './pages/admin/Orders'
 import MyOrders from './pages/orders/MyOrders'
+import Newsletter from './pages/admin/Newsletter'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/add" element={<AddPremix />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/newsletter" element={<Newsletter />} />
           <Route path="/my-orders" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
           <Route path="/sambar-powder" element={<SambarPremix />} />
           <Route path="/rasam-powder" element={<RasamPremix />} />

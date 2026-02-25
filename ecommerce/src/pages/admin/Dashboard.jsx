@@ -141,6 +141,7 @@ function Dashboard() {
                         <button className={`nav-link ${activeTab === 'orders' ? 'active' : ''}`} onClick={() => setActiveTab('orders')} style={activeTab === 'orders' ? { backgroundColor: 'var(--chettinad-maroon)', color: 'white' } : { color: 'var(--chettinad-charcoal)' }}>Orders</button>
                         <button className={`nav-link ${activeTab === 'products' ? 'active' : ''}`} onClick={() => setActiveTab('products')} style={activeTab === 'products' ? { backgroundColor: 'var(--chettinad-maroon)', color: 'white' } : { color: 'var(--chettinad-charcoal)' }}>Products & Stock</button>
                         <button className={`nav-link ${activeTab === 'add' ? 'active' : ''}`} onClick={() => setActiveTab('add')} style={activeTab === 'add' ? { backgroundColor: 'var(--chettinad-maroon)', color: 'white' } : { color: 'var(--chettinad-charcoal)' }}>Add Product</button>
+                        <Link to="/newsletter" className="nav-link" style={{ color: 'var(--chettinad-charcoal)' }}>📬 Newsletter</Link>
                     </div>
                 </div>
 
