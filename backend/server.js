@@ -31,7 +31,7 @@ const startServer = async () => {
         await sequelize.authenticate();
         // Use { alter: true } to update table schema without losing data
         await Order.sync({ alter: true });
-        await User.sync();
+        await User.sync({ alter: true });
         await Subscriber.sync();
         console.log('✅ Database connected');
         app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`));
