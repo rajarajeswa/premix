@@ -1,8 +1,50 @@
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../App.css';
 import { Link } from 'react-router-dom';
+import { apiFetch } from '../../api/client';
 
 function HomePage() {
+    const [email, setEmail] = useState('');
+    const [subscribeStatus, setSubscribeStatus] = useState({ type: '', message: '' });
+    const [isSubscribing, setIsSubscribing] = useState(false);
+
+    const handleSubscribe = async (e) => {
+        e.preventDefault();
+        
+        if (!email.trim()) {
+            setSubscribeStatus({ type: 'error', message: 'Please enter your email address' });
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setSubscribeStatus({ type: 'error', message: 'Please enter a valid email address' });
+            return;
+        }
+
+        setIsSubscribing(true);
+        setSubscribeStatus({ type: '', message: '' });
+
+        try {
+            const { data } = await apiFetch('/api/subscribe', {
+                method: 'POST',
+                body: JSON.stringify({ email: email.trim() })
+            });
+
+            if (data.success) {
+                setSubscribeStatus({ type: 'success', message: data.message });
+                setEmail('');
+            } else {
+                setSubscribeStatus({ type: 'error', message: data.message });
+            }
+        } catch (err) {
+            setSubscribeStatus({ type: 'error', message: 'Failed to subscribe. Please try again.' });
+        } finally {
+            setIsSubscribing(false);
+        }
+    };
+
     return (
         <div style={{ fontFamily: 'var(--font-body)', minHeight: '100vh', backgroundColor: 'var(--earth-ivory)' }}>
             {/* Hero Section */}
@@ -536,16 +578,39 @@ function HomePage() {
                             <p className="newsletter-subtitle">
                                 Subscribe for authentic recipes, cooking tips, and exclusive offers
                             </p>
-                            <div className="newsletter-form">
+                            <form onSubmit={handleSubscribe} className="newsletter-form">
                                 <input 
                                     type="email" 
                                     className="newsletter-input" 
                                     placeholder="Enter your email address"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    disabled={isSubscribing}
                                 />
-                                <button className="btn btn-accent-chettinad newsletter-btn">
-                                    Subscribe
+                                <button 
+                                    type="submit" 
+                                    className="btn btn-accent-chettinad newsletter-btn"
+                                    disabled={isSubscribing}
+                                >
+                                    {isSubscribing ? 'Subscribing...' : 'Subscribe'}
                                 </button>
-                            </div>
+                            </form>
+                            {subscribeStatus.message && (
+                                <div 
+                                    style={{ 
+                                        marginTop: '1rem', 
+                                        padding: '0.75rem 1rem', 
+                                        borderRadius: '8px',
+                                        backgroundColor: subscribeStatus.type === 'success' 
+                                            ? 'rgba(76, 175, 80, 0.2)' 
+                                            : 'rgba(244, 67, 54, 0.2)',
+                                        color: subscribeStatus.type === 'success' ? '#4CAF50' : '#f44336',
+                                        fontSize: '0.9rem'
+                                    }}
+                                >
+                                    {subscribeStatus.message}
+                                </div>
+                            )}
                             <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', marginTop: '1rem' }}>
                                 We respect your privacy. Unsubscribe anytime.
                             </p>

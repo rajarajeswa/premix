@@ -25,6 +25,11 @@ const {
     deleteAddress,
     setDefaultAddress
 } = require('../controller/addressController');
+const {
+    subscribe,
+    unsubscribe,
+    getSubscribers
+} = require('../controller/subscriptionController');
 const router = express.Router();
 
 // Auth routes
@@ -81,6 +86,11 @@ router.post('/addresses', verifyToken, createAddress);
 router.put('/addresses/:id', verifyToken, updateAddress);
 router.delete('/addresses/:id', verifyToken, deleteAddress);
 router.put('/addresses/:id/default', verifyToken, setDefaultAddress);
+
+// Newsletter subscription routes
+router.post('/subscribe', subscribe);
+router.post('/unsubscribe', unsubscribe);
+router.get('/subscribers', verifyToken, getSubscribers);
 
 // Health check (for "is backend running?")
 router.get('/test', (req, res) => {

@@ -6,6 +6,7 @@ require('dotenv').config();
 const sequelize = require('./db/db-connection');
 const { Order } = require('./model/Order');
 const { User } = require('./model/User');
+const { Subscriber } = require('./model/Subscriber');
 const productRoutes = require('./route/route');
 
 const app = express();
@@ -31,6 +32,7 @@ const startServer = async () => {
         // Use { alter: true } to update table schema without losing data
         await Order.sync({ alter: true });
         await User.sync();
+        await Subscriber.sync();
         console.log('✅ Database connected');
         app.listen(PORT, () => console.log(`🚀 Server on port ${PORT}`));
     } catch (error) {
